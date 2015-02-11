@@ -3,7 +3,7 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
+    database_name:     asynctweets
     database_user:     root
     database_password: ~
     # You should uncomment this if you want use pdo_sqlite
@@ -18,3 +18,9 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+    
+    # Twitter keys, see https://apps.twitter.com/
+    twitter_consumer_key: null
+    twitter_consumer_secret: null
+    twitter_token: null
+    twitter_token_secret: null
