@@ -1,20 +1,25 @@
 AsyncTweets
 ===========
 
-Goal
-----
+## Goal
 
-The goal of this project is to create a PHP Twitter reader. AyncTweets will retrieve and store your timeline, allowing to read tweets even if you're away from <s>the keyboard</s> your Twitter client.
+The goal of this project is to create a PHP Twitter reader built with [Symfony2][1]. AyncTweets will retrieve and store your timeline, allowing to read your Twitter timeline even if you're away from <s>the keyboard</s> your Twitter client several days.
 
-Installation
-------------
+## Installation
 
+### Requirements:
+
+ - [Twitter keys][2]
+ - PHP >=5.3.3 (required by Symfony2)
+
+### Steps:
+ 
  1. Clone this repository
- 2. Install [Composer][1]
- 3. Install the vendors: `php composer.phar install --prefer-dist -vvv --profile`
- 4. Edit the `app/config/parameters.yml` file and add your [Twitter keys][2]
- 5. Launch the tests: `./phpunit.sh` or `phpunit -c app/phpunit.xml.dist`
+ 2. Install [Composer][3] (`php -r "readfile('https://getcomposer.org/installer');" | php`)
+ 3. Install the vendors: `php composer.phar install --prefer-dist -vvv --profile` and enter your Twitter keys at the end of the installation wizard (you can still add the keys later by editing the `app/config/parameters.yml` file)
+ 4. Launch the tests: `./phpunit.sh` or `phpunit -c app/phpunit.xml.dist`
  5. Launch the only available command yet: `php app/console statuses:hometimeline`, try the ` --printr` and ` --printruser` options
 
-[1]: https://getcomposer.org/download/
-[2]: https://apps.twitter.com/
+[1]: http://symfony.com/
+[2]: https://getcomposer.org/download/
+[3]: https://apps.twitter.com/
