@@ -13,7 +13,8 @@ Installation
  2. Install [Composer][1]
  3. Install the vendors: `php composer.phar install --prefer-dist -vvv --profile`
  4. Edit the `app/config/parameters.yml` file and add your [Twitter keys][2]
- 5. Launch the only available command yet: `https://apps.twitter.com/`
+ 5. Launch the tests: `./phpunit.sh` or `phpunit -c app/phpunit.xml.dist`
+ 5. Launch the only available command yet: `php app/console statuses:hometimeline`, try the ` --printr` and ` --printruser` options
 
 [1]: https://getcomposer.org/download/
 [2]: https://apps.twitter.com/
