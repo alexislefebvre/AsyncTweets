@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class TweetRepository extends EntityRepository
 {
+    public function getWithUsers()
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->addSelect('user')
+            ->innerJoin('t.user', 'user')
+            ->orderBy('t.id', 'DESC')
+        ;
+	
+		return $qb->getQuery()->getResult();
+    }
 }

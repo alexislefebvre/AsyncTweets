@@ -71,3 +71,9 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# Use the bootstrap theme for KnpPaginatorBundle
+# See http://stackoverflow.com/questions/23035404/configure-knppaginator-to-work-with-twitter-bootstrap/23035774#23035774
+knp_paginator:
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig

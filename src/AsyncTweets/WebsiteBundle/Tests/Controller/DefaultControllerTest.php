@@ -24,7 +24,10 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(1,
             $crawler->filter('title:contains("Home timeline - AsyncTweets")')->count());
         
+        $this->assertEquals(1,
+            $crawler->filter('div.tweets')->count());
+        
         $this->assertGreaterThanOrEqual(1,
-            $crawler->filter('main.container > div.media')->count());            
+            $crawler->filter('main.container > div.tweets > div.media')->count());            
     }
 }

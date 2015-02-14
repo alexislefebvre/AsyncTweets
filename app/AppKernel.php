@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new AsyncTweets\CommandBundle\AsyncTweetsCommandBundle(),
             new AsyncTweets\TweetBundle\AsyncTweetsTweetBundle(),
             new AsyncTweets\WebsiteBundle\AsyncTweetsWebsiteBundle(),
+            
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

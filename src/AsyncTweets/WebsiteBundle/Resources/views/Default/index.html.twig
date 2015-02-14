@@ -3,7 +3,23 @@
 {% block title %}Home timeline{% endblock %}
 
 {% block content %}
-    {% for tweet in tweets %}
-        {% include 'AsyncTweetsWebsiteBundle:Default:tweet_inc.html.twig' %}
-    {% endfor %}
+    <div class="count">
+        {{ pagination.getTotalItemCount }} tweets
+    </div>
+    
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    
+    <div class="tweets">
+        {% for tweet in pagination %}
+            {% include 'AsyncTweetsWebsiteBundle:Default:tweet_inc.html.twig' %}
+        {% endfor %}
+    </div>
+    
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}
