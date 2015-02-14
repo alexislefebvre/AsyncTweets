@@ -36,9 +36,11 @@ The goal of this project is to create an online Twitter reader built with [Symfo
 
  - [symfony/symfony][4] (2.6)
  - [abraham/twitteroauth][5] (0.5.0)
+ - [KnpLabs/KnpPaginatorBundle][6] (2.4.*@dev)
 
 [1]: http://symfony.com/
 [2]: https://apps.twitter.com/
 [3]: https://getcomposer.org/download/
 [4]: https://github.com/symfony/symfony
 [5]: https://github.com/abraham/twitteroauth
+[6]: https://github.com/KnpLabs/KnpPaginatorBundle
