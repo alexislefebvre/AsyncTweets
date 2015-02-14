@@ -9,7 +9,7 @@ AsyncTweets\TweetBundle\Entity\User:
     repositoryClass: AsyncTweets\TweetBundle\Entity\UserRepository
     id:
         id:
-            type: integer
+            type: bigint
             id: true
     fields:
         name:

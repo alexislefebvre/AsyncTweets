@@ -70,7 +70,7 @@ class Tweet
      * @param \DateTime $createdAt
      * @return Tweet
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\Datetime $createdAt)
     {
         $this->created_at = $createdAt;
 

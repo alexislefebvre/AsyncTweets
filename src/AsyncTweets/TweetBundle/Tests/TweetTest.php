@@ -17,12 +17,12 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         ;
         
         $this->assertEquals(
-            'Twitter France', 
+            'Twitter France',
             $user->getName()
         );
         
         $this->assertEquals(
-            'TwitterFrance', 
+            'TwitterFrance',
             $user->getScreenName()
         );
     }
@@ -41,27 +41,27 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         ;
         
         $this->assertEquals(
-            565939802152120320, 
+            565939802152120320,
             $tweet->getId()
         );
         
         $this->assertEquals(
-            $now, 
+            $now,
             $tweet->getCreatedAt()
         );
         
         $this->assertEquals(
-            'Hello World!', 
+            'Hello World!',
             $tweet->getText()
         );
         
         $this->assertEquals(
-            1999, 
+            1999,
             $tweet->getRetweetCount()
         );
         
         $this->assertEquals(
-            42, 
+            42,
             $tweet->getFavoriteCount()
         );
         
@@ -80,13 +80,13 @@ class TweetTest extends \PHPUnit_Framework_TestCase
         ;
         
         $this->assertEquals(
-            $userClone, 
+            $userClone,
             $tweet->getUser()
         );
         
         # Count Tweet associated to the User
         $this->assertEquals(
-            1, 
+            1,
             count($user->getTweets())
         );
     }
