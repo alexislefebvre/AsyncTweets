@@ -1,24 +1,36 @@
-AsyncTweets
-===========
+# AsyncTweets
 
 ## Goal
 
-The goal of this project is to create a PHP Twitter reader built with [Symfony2][1]. AyncTweets will retrieve and store your timeline, allowing to read your Twitter timeline even if you're away from <s>the keyboard</s> your Twitter client several days.
+The goal of this project is to create an online Twitter reader built with [Symfony2][1]. AyncTweets will retrieve and store your timeline, allowing to read your Twitter timeline even if you're away from <s>the keyboard</s> your Twitter client several days.
+
+### TODO
+
+ - Paginate tweets
+ - Display tweets since last visit (for example by using a cookie)
+ - Add OAuth authentification to identify an user with its Twitter account (may avoid requesting a key for this app)
 
 ## Installation
 
 ### Requirements:
 
  - [Twitter keys][2]
- - PHP >=5.3.3 (required by Symfony2)
+ - PHP >= 5.3.3 (required by Symfony2)
+ - a database (must be supported by Doctrine2)
 
 ### Steps:
  
  1. Clone this repository
  2. Install [Composer][3] (`php -r "readfile('https://getcomposer.org/installer');" | php`)
  3. Install the vendors: `php composer.phar install --prefer-dist -vvv --profile` and enter your Twitter keys at the end of the installation wizard (you can still add the keys later by editing the `app/config/parameters.yml` file)
- 4. Launch the tests: `./phpunit.sh` or `phpunit -c app/phpunit.xml.dist`
- 5. Launch the only available command yet: `php app/console statuses:hometimeline`, try the ` --printr` and ` --printruser` options
+ 4. Create the database and create the tables: `php app/console doctrine:schema:update --force`
+ 5. Launch this command to fetch tweets: `php app/console statuses:hometimeline`, try the ` --table` option to see the imported tweets
+ 6. Open the page with your browser `.../AsyncTweets/web/app_dev.php/`
+ 7. Add `php app/console statuses:hometimeline` in your crontab (e.g. every hour) to retrieve tweets automatically
+
+### Tests:
+
+`./phpunit.sh` or `phpunit -c app/phpunit.xml.dist`
 
 ## Dependencies
 
