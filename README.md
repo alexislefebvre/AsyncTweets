@@ -26,7 +26,7 @@ The goal of this project is to create a PHP Twitter reader built with [Symfony2]
  - [abraham/twitteroauth][5] (0.5.0)
 
 [1]: http://symfony.com/
-[2]: https://getcomposer.org/download/
-[3]: https://apps.twitter.com/
+[2]: https://apps.twitter.com/
+[3]: https://getcomposer.org/download/
 [4]: https://github.com/symfony/symfony
 [5]: https://github.com/abraham/twitteroauth
