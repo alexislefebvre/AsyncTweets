@@ -7,6 +7,12 @@
         <title>{% block title %}Base{% endblock %} - AsyncTweets</title>
         
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.3.2/cerulean/bootstrap.min.css" />
+        <style>
+            main.container > div.media:not(:first-child) {
+                border-top: thin solid Grey;
+                padding-top: 0.5em;
+            }
+        </style>
     </head>
     
     <body{% block body_attrs %}{% endblock %}>

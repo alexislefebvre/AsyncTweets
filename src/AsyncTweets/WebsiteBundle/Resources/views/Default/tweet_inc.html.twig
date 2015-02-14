@@ -1,9 +1,9 @@
-<div class="row">
-    <div class="col-sm-2 col-md-1">
+{# see http://getbootstrap.com/components/#media #}<div class="media">
+    <div class="media-left media-middle">
         <img src="{{ tweet.user.profileImageUrl }}" width="48" height="48"
-            alt="{{ tweet.user.name }}" />
+            class="media-object" alt="{{ tweet.user.name }}" />
     </div>
-    <blockquote class="col-sm-10 col-md-11">
+    <blockquote class="media-body">
         <p>{{ tweet.text }}</p>
         <small>
             <a href="{{
@@ -17,13 +17,13 @@
                     '%tweet_id%': tweet.id
                 })
             }}">{{ tweet.createdAt|date('c') }}</a>
-            &nbsp;
-            <span class="label label-default">
+            
+            <span class="badge">
                 <span class="glyphicon glyphicon-star"></span>
                 {{ tweet.favoriteCount }}
             </span>
-            &nbsp;
-            <span class="label label-default">
+            
+            <span class="badge">
                 <span class="glyphicon glyphicon-retweet"></span>
                 {{ tweet.retweetCount }}
             </span>
