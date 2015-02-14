@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-sm-2 col-md-1">
+        Image
+    </div>
+    <blockquote class="col-sm-10 col-md-11">
+        <p>{{ tweet.text }}</p>
+        <small>
+            <a href="{{
+                'https://twitter.com/%user_name%'|replace({
+                    '%user_name%': tweet.user.screenName
+                })
+            }}">{{ tweet.user.name }}</a>,
+            <a href="{{
+                'https://twitter.com/%user_name%/status/%tweet_id%'|replace({
+                    '%user_name%': tweet.user.screenName,
+                    '%tweet_id%': tweet.id
+                })
+            }}">{{ tweet.createdAt|date('c') }}</a>
+            &nbsp;
+            <span class="label label-default">
+                <span class="glyphicon glyphicon-star"></span>
+                {{ tweet.favoriteCount }}
+            </span>
+            &nbsp;
+            <span class="label label-default">
+                <span class="glyphicon glyphicon-retweet"></span>
+                {{ tweet.retweetCount }}
+            </span>
+        </small>
+    </blockquote>
+</div>

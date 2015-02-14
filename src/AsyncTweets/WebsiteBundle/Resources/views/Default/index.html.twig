@@ -1,0 +1,9 @@
+{% extends 'AsyncTweetsWebsiteBundle::layout.html.twig' %}
+
+{% block title %}Home timeline{% endblock %}
+
+{% block content %}
+    {% for tweet in tweets %}
+        {% include 'AsyncTweetsWebsiteBundle:Default:tweet_inc.html.twig' %}
+    {% endfor %}
+{% endblock %}

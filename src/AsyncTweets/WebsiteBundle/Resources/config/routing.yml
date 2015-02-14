@@ -1,0 +1,4 @@
+# Default
+asynctweets_website_homepage:
+    pattern:  /
+    defaults: { _controller: AsyncTweetsWebsiteBundle:Default:index }
