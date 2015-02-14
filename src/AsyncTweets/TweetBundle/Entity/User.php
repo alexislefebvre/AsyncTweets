@@ -26,6 +26,11 @@ class User
     private $screen_name;
     
     /**
+     * @var string
+     */
+    private $profile_image_url;
+    
+    /**
      * @var ArrayCollection
      */
     private $tweets;
@@ -102,6 +107,29 @@ class User
     public function getScreenName()
     {
         return $this->screen_name;
+    }
+    
+    /**
+     * Set profile_image_url
+     *
+     * @param string $profileImageUrl
+     * @return User
+     */
+    public function setProfileImageUrl($profileImageUrl)
+    {
+        $this->profile_image_url = $profileImageUrl;
+
+        return $this;
+    }
+    
+    /**
+     * Get profile_image_url
+     *
+     * @return string 
+     */
+    public function getProfileImageUrl()
+    {
+        return $this->profile_image_url;
     }
         
     /**

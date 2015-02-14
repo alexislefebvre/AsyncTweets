@@ -177,6 +177,7 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
             $user
                 ->setName($userTmp->name)
                 ->setScreenName($userTmp->screen_name)
+                ->setProfileImageUrl($userTmp->profile_image_url)
             ;
             
             $em->persist($user);

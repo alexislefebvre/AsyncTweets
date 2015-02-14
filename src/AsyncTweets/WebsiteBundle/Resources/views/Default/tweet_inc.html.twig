@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-sm-2 col-md-1">
-        Image
+        <img src="{{ tweet.user.profileImageUrl }}" width="48" height="48"
+            alt="{{ tweet.user.name }}" />
     </div>
     <blockquote class="col-sm-10 col-md-11">
         <p>{{ tweet.text }}</p>

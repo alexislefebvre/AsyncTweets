@@ -18,6 +18,9 @@ AsyncTweets\TweetBundle\Entity\User:
         screen_name:
             type: string
             length: '255'
+        profile_image_url:
+            type: string
+            length: '255'
     oneToMany:
         tweets:
             targetEntity: Tweet
