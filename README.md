@@ -20,6 +20,13 @@ The goal of this project is to create a PHP Twitter reader built with [Symfony2]
  4. Launch the tests: `./phpunit.sh` or `phpunit -c app/phpunit.xml.dist`
  5. Launch the only available command yet: `php app/console statuses:hometimeline`, try the ` --printr` and ` --printruser` options
 
+## Dependencies
+
+ - [symfony/symfony][4] (2.6)
+ - [abraham/twitteroauth][5] (0.5.0)
+
 [1]: http://symfony.com/
 [2]: https://getcomposer.org/download/
 [3]: https://apps.twitter.com/
+[4]: https://github.com/symfony/symfony
+[5]: https://github.com/abraham/twitteroauth
