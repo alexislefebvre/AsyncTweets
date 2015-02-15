@@ -110,6 +110,16 @@ class Tweet
         return $this->text;
     }
     
+    public function getTextLinkified()
+    {
+        /** @see http://stackoverflow.com/questions/507436/how-do-i-linkify-urls-in-a-string-with-php/507459#507459 */
+        return preg_replace(
+            "~[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]~",
+            "<a href=\"\\0\">\\0</a>", 
+            $this->getText()
+        );
+    }
+    
     /**
      * Set retweet_count
      *
