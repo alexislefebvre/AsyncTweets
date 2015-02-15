@@ -5,7 +5,10 @@
 #  --with-repository --no-interaction --format=yml
 AsyncTweets\TweetBundle\Entity\User:
     type: entity
-    table: user
+    # "user" is a PostgreSQL reserved keyword
+    # Source: http://www.postgresql.org/docs/8.4/static/sql-keywords-appendix.html
+    # Solution: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#quoting-reserved-words
+    table: '`user`'
     repositoryClass: AsyncTweets\TweetBundle\Entity\UserRepository
     id:
         id:
