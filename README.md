@@ -1,14 +1,24 @@
 # AsyncTweets
 
+## Demo
+
+http://asynctweets.alexislefebvre.com/demo/
+
 ## Goal
 
 The goal of this project is to create an online Twitter reader built with [Symfony2][1]. AyncTweets will retrieve and store your timeline, allowing to read your Twitter timeline even if you're away from <s>the keyboard</s> your Twitter client several days.
 
+## Features
+
+ - Retrieve tweets by using User's Twitter keys
+ - Display the tweets with a pagination
+
 ### TODO
 
- - Paginate tweets
  - Display tweets since last visit (for example by using a cookie)
  - Add OAuth authentification to identify an user with its Twitter account (may avoid requesting a key for this app)
+ - Keep pagination numbers consistent even if tweets are added (new tweets) or removed (old tweets purged)
+ - Display tweets on CLI (Command Line Interface)
 
 ## Installation
 
