@@ -32,7 +32,7 @@ The goal of this project is to create an online Twitter reader built with [Symfo
  
  1. Clone this repository
  2. Install [Composer][3] (`php -r "readfile('https://getcomposer.org/installer');" | php`)
- 3. Install the vendors: `php composer.phar install --prefer-dist -vvv --profile` and enter your Twitter keys at the end of the installation wizard (you can still add the keys later by editing the `app/config/parameters.yml` file)
+ 3. Install the vendors: `php composer.phar install --prefer-dist --no-dev -vvv --profile` and enter your Twitter keys at the end of the installation wizard (you can still add the keys later by editing the `app/config/parameters.yml` file)
  4. Create the database and create the tables: `php app/console doctrine:schema:update --force`
  5. Launch this command to fetch tweets: `php app/console statuses:hometimeline`, try the ` --table` option to see the imported tweets
  6. Open the page with your browser `.../AsyncTweets/web/app_dev.php/`
