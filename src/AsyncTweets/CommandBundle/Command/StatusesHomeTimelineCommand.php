@@ -39,9 +39,6 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
             ->setDescription('Fetch home timeline')
             # http://symfony.com/doc/2.3/cookbook/console/console_command.html#automatically-registering-commands
             ->addOption('table', null, InputOption::VALUE_NONE, 'Display a table with tweets')
-            ->addOption('printr', null, InputOption::VALUE_NONE, 'Display a tweet object with print_r()')
-            ->addOption('printruser', null, InputOption::VALUE_NONE, 'Display an user object with print_r()')
-            ->addOption('json', null, InputOption::VALUE_NONE, 'Display a tweet object with json_encode()')
         ;
     }
 
@@ -112,22 +109,6 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
         if ($numberOfTweets == 0)
         {
             $output->writeln('<comment>No new tweet.</comment>');
-            return 0;
-        }
-        
-        if ($input->getOption('printr'))
-        {
-            $output->writeln(print_r($content[0], true));
-            return 0;
-        }
-        elseif ($input->getOption('printruser'))
-        {
-            $output->writeln(print_r($content[0]->user, true));
-            return 0;
-        }
-        elseif ($input->getOption('json'))
-        {
-            $output->writeln(json_encode($content[0], true));
             return 0;
         }
         
