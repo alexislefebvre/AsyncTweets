@@ -48,7 +48,7 @@ The goal of this project is to create an online Twitter reader built with [Symfo
  - [abraham/twitteroauth][5] (0.5.0)
  - [KnpLabs/KnpPaginatorBundle][6] (2.4.*@dev)
 
-[Master image]: https://travis-ci.org/alexislefebvre/AsyncTweets.svg
+[Master image]: https://travis-ci.org/alexislefebvre/AsyncTweets.svg?branch=master
 [Master]: https://travis-ci.org/alexislefebvre/AsyncTweets
 [1]: http://symfony.com/
 [2]: https://apps.twitter.com/
