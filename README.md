@@ -25,7 +25,7 @@ The goal of this project is to create an online Twitter reader built with [Symfo
 ### Requirements:
 
  - [Twitter keys][2]
- - PHP >= 5.3.3 (required by Symfony2)
+ - PHP >= 5.4 (required by abraham/twitteroauth[0.5.0])
  - a database (must be supported by Doctrine2)
 
 ### Steps:
