@@ -8,7 +8,8 @@ class StatusesHomeTimelineTest extends \PHPUnit_Framework_TestCase
 {
     public function testReadTweet()
     {
-        $tweetJSON = file_get_contents(dirname(__FILE__).'/data/tweet.json');
+        $tweetJSON = file_get_contents(
+            dirname(__FILE__).'/data/tweet_with_hashtag_link_and_image.json');
         
         $tweet = json_decode($tweetJSON);
         
@@ -56,12 +57,12 @@ class StatusesHomeTimelineTest extends \PHPUnit_Framework_TestCase
         );
         
         $this->assertEquals(
-            49,
+            68,
             $tweetObject->getRetweetCount()
         );
         
         $this->assertEquals(
-            28,
+            34,
             $tweetObject->getFavoriteCount()
         );
         
