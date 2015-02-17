@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * User
+ * Media
  */
-class User
+class Media
 {
     /**
      * @var integer
@@ -18,18 +18,23 @@ class User
     /**
      * @var string
      */
-    private $name;
+    private $media_url_https;
     
     /**
      * @var string
      */
-    private $screen_name;
+    private $url;
     
     /**
      * @var string
      */
-    private $profile_image_url;
+    private $display_url;
     
+    /**
+     * @var string
+     */
+    private $expanded_url;
+        
     /**
      * @var ArrayCollection
      */
@@ -64,74 +69,97 @@ class User
     }
     
     /**
-     * Set name
+     * Set media_url_https
      *
-     * @param string $name
-     * @return User
+     * @param string $mediaUrlHttps
+     * @return Media
      */
-    public function setName($name)
+    public function setMediaUrlHttps($mediaUrlHttps)
     {
-        $this->name = $name;
+        $this->media_url_https = $mediaUrlHttps;
 
         return $this;
     }
     
     /**
-     * Get name
+     * Get media_url_https
      *
      * @return string 
      */
-    public function getName()
+    public function getMediaUrlHttps()
     {
-        return $this->name;
+        return $this->media_url_https;
     }
     
     /**
-     * Set screen_name
+     * Set url
      *
-     * @param string $screenName
-     * @return User
+     * @param string $url
+     * @return Media
      */
-    public function setScreenName($screenName)
+    public function setUrl($url)
     {
-        $this->screen_name = $screenName;
+        $this->url = $url;
 
         return $this;
     }
     
     /**
-     * Get screen_name
+     * Get url
      *
      * @return string 
      */
-    public function getScreenName()
+    public function getUrl()
     {
-        return $this->screen_name;
+        return $this->url;
     }
     
     /**
-     * Set profile_image_url
+     * Set display_url
      *
-     * @param string $profileImageUrl
-     * @return User
+     * @param string $displayUrl
+     * @return Media
      */
-    public function setProfileImageUrl($profileImageUrl)
+    public function setDisplayUrl($displayUrl)
     {
-        $this->profile_image_url = $profileImageUrl;
+        $this->display_url = $displayUrl;
 
         return $this;
     }
     
     /**
-     * Get profile_image_url
+     * Get display_url
      *
      * @return string 
      */
-    public function getProfileImageUrl()
+    public function getDisplayUrl()
     {
-        return $this->profile_image_url;
+        return $this->display_url;
     }
-        
+    
+    /**
+     * Set expanded_url
+     *
+     * @param string $expandedUrl
+     * @return Media
+     */
+    public function setExpandedUrl($expandedUrl)
+    {
+        $this->expanded_url = $expandedUrl;
+
+        return $this;
+    }
+    
+    /**
+     * Get expanded_url
+     *
+     * @return string 
+     */
+    public function getExpandedUrl()
+    {
+        return $this->expanded_url;
+    }
+    
     /**
      * Set tweets
      *

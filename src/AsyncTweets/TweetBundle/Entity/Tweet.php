@@ -5,7 +5,6 @@ namespace AsyncTweets\TweetBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-
 /**
  * Tweet
  */
@@ -40,6 +39,16 @@ class Tweet
      * @var integer
      */
     private $user;
+    
+    /**
+     * @var ArrayCollection
+     */
+    private $medias;
+    
+    public function __construct()
+    {
+        $this->medias = new ArrayCollection();
+    }
     
     /**
      * Set id
@@ -188,5 +197,41 @@ class Tweet
     public function getUser()
     {
         return $this->user;
+    }
+    
+    /**
+     * Set medias
+     *
+     * @param ArrayCollection $medias
+     * @return Tweet
+     */
+    public function setMedias($medias)
+    {
+        $this->medias = $medias;
+        
+        return $this;
+    }
+    
+    /**
+     * Get medias
+     *
+     * @return ArrayCollection 
+     */
+    public function getMedias()
+    {
+        return $this->medias;
+    }
+    
+    /**
+     * Add a media
+     *
+     * @return Tweet
+     */
+    public function addMedia(Media $media)
+    {
+        $media->addTweet($this);
+        $this->medias[] = $media;
+        
+        return $this;
     }
 }

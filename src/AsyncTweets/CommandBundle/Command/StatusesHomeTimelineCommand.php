@@ -12,8 +12,9 @@ use Symfony\Component\Console\Helper\ProgressBar;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
-use AsyncTweets\TweetBundle\Entity\Tweet;
 use AsyncTweets\TweetBundle\Entity\User;
+use AsyncTweets\TweetBundle\Entity\Tweet;
+use AsyncTweets\TweetBundle\Entity\Media;
 
 class StatusesHomeTimelineCommand extends ContainerAwareCommand
 {
@@ -56,8 +57,7 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
         /** @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline */
         $parameters = array(
             'count' => 200,
-            'exclude_replies' => true,
-            'include_entities' => false
+            'exclude_replies' => true
         );
         
         # Get the last tweet
@@ -128,7 +128,7 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
         
         # Iterate through the $content with the oldest tweet first
         #  in order to add the oldest tweet first
-        array_reverse($content);
+        //~ array_reverse($content);
         
         $progress = new ProgressBar($output, $numberOfTweets);
         $progress->setBarCharacter('<comment>=</comment>');
@@ -184,6 +184,27 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
                 
                 $em->persist($tweet);
                 $em->flush();
+                
+                if ((isset($tweetTmp->entities))
+                    && (isset($tweetTmp->entities->media)))
+                {
+                    foreach ($tweetTmp->entities->media as $mediaTmp)
+                    {
+                        $media = new Media();
+                        $media
+                            ->setId($mediaTmp->id)
+                            ->setMediaUrlHttps($mediaTmp->media_url)
+                            ->setUrl($mediaTmp->url)
+                            ->setDisplayUrl($mediaTmp->display_url)
+                            ->setExpandedUrl($mediaTmp->expanded_url)
+                        ;
+                        
+                        $tweet->addMedia($media);
+                        
+                        $em->persist($media);
+                        $em->flush();
+                    }
+                }
             }
             
             if ($input->getOption('table'))
