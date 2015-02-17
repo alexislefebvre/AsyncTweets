@@ -4,7 +4,7 @@
             class="media-object" alt="{{ tweet.user.name }}" />
     </div>
     <blockquote class="media-body">
-        <p>{{ tweet.textLinkified|raw }}</p>
+        <p>{{ tweet.textLinkified|raw|nl2br }}</p>
         <small>
             <a href="{{
                 'https://twitter.com/%user_name%'|replace({
