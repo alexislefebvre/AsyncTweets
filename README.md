@@ -12,15 +12,18 @@ The goal of this project is to create an online Twitter reader built with [Symfo
 
  - Retrieve tweets by using User's Twitter keys
  - Display the tweets with a pagination
+ - Display images below tweets
 
 ### TODO
 
- - Display images below tweets
  - Highlight RT (ReTweets)
  - Display tweets since last visit (for example by using a cookie)
  - Add OAuth authentification to identify an user with its Twitter account (may avoid requesting a key for this app)
  - Keep pagination numbers consistent even if tweets are added (new tweets added by cron) or removed (old tweets purged)
  - Display tweets on CLI (Command Line Interface)
+ - Group tweets by user
+ - Add tests with code coverage
+ - Reorganise files to make a bundle, and add a `composer.json` file to automate the install
 
 ## Installation
 

@@ -99,6 +99,7 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
             $errorMessages = array('Error!', 'Something went wrong, $content is not an array.');
             $formattedBlock = $formatter->formatBlock($errorMessages, 'error');
             $output->writeln($formattedBlock);
+            $output->writeln(print_r($content, true));
             return 1;
         }
         
