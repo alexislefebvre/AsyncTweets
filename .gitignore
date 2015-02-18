@@ -33,3 +33,6 @@
 # Composer PHAR
 /composer.phar
 /composer.lock
+
+# Code coverage
+/cov/
