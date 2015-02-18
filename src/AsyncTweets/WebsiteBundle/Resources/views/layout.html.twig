@@ -120,6 +120,8 @@
         <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
         <script>window.jQuery && document.write('<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"><\/script>')</script>
         <script>
+            var glyphicon_link = '<span class="glyphicon glyphicon-new-window"></span>';
+            
             $(document).ready(function() {
                 /* keys */
                 $(document).bind('keyup', function(event) {
@@ -138,6 +140,12 @@
                         return false;
                     }
                 });
+                
+                /* http://trevordavis.net/blog/use-jquery-to-open-all-external-links-in-a-new-window/#comment-406848859 */
+                $("body a[href^='http']:not([href*='" + window.location.host + "'])")
+                    .attr('target','_blank')
+                    .append('&nbsp;', glyphicon_link)
+                ;
             });
         </script>
     </body>
