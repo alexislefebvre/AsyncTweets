@@ -186,8 +186,15 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
                 $em->persist($tweet);
                 $em->flush();
                 
-                if ((isset($tweetTmp->entities))
-                    && (isset($tweetTmp->entities->media)))
+                if (
+                    (isset($tweetTmp->entities))
+                    &&
+                    (isset($tweetTmp->entities->media))
+                    &&
+                    (isset($tweetTmp->entities->media->type))
+                    &&
+                    ($tweetTmp->entities->media->type === 'photo')
+                )
                 {
                     foreach ($tweetTmp->entities->media as $mediaTmp)
                     {

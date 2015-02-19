@@ -7,26 +7,6 @@ use AsyncTweets\TweetBundle\Entity\User;
 
 class TweetTest extends \PHPUnit_Framework_TestCase
 {
-    public function testUser()
-    {
-        $user = new User();
-        $user
-            ->setId(90556897)
-            ->setName('Twitter France')
-            ->setScreenName('TwitterFrance')
-        ;
-        
-        $this->assertEquals(
-            'Twitter France',
-            $user->getName()
-        );
-        
-        $this->assertEquals(
-            'TwitterFrance',
-            $user->getScreenName()
-        );
-    }
-    
     public function testTweet()
     {
         $now = new \Datetime('now');

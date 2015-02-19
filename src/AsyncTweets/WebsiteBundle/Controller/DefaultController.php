@@ -11,7 +11,7 @@ class DefaultController extends Controller
     {
         $tweets = $this->getDoctrine()
             ->getRepository('AsyncTweetsTweetBundle:Tweet')
-            ->getWithUsers();
+            ->getWithUsersAndMedias();
         
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
