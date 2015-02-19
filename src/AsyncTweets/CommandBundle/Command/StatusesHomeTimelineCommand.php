@@ -163,7 +163,6 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
             ;
             
             $em->persist($user);
-            $em->flush();
             
             # Tweet
             $tweet = $this->em
@@ -183,21 +182,19 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
                     ->setUser($user)
                 ;
                 
-                $em->persist($tweet);
-                $em->flush();
-                
                 if (
                     (isset($tweetTmp->entities))
                     &&
                     (isset($tweetTmp->entities->media))
-                    &&
-                    (isset($tweetTmp->entities->media->type))
-                    &&
-                    ($tweetTmp->entities->media->type === 'photo')
                 )
                 {
                     foreach ($tweetTmp->entities->media as $mediaTmp)
                     {
+                        if ($mediaTmp->type !== 'photo')
+                        {
+                            continue;
+                        }
+                        
                         $media = new Media();
                         $media
                             ->setId($mediaTmp->id)
@@ -210,10 +207,12 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
                         $tweet->addMedia($media);
                         
                         $em->persist($media);
-                        $em->flush();
                     }
                 }
             }
+            
+            $em->persist($tweet);
+            $em->flush();
             
             if ($input->getOption('table'))
             {
@@ -228,6 +227,7 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
         }
         
         $progress->finish();
+        $output->writeln('');
         
         if ($input->getOption('table'))
         {
