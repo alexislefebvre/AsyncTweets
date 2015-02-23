@@ -14,7 +14,7 @@
                 border-top: thin solid Grey;
                 padding-top: 0.5em;
             }
-            footer.navbar-inverse {
+            div.navbar-inverse {
                 margin-bottom: 0px;
             }
         </style>
@@ -170,12 +170,10 @@
                                 
                                 externalLinks('main.container div.tweets');
                                 
-                                $('html, body').animate({
-                                    scrollTop: $('div.navigation > ul.pagination')
-                                        .last()
-                                        .offset()
-                                        .top
-                                }, 500);
+                                /* https://developer.mozilla.org/fr/docs/Web/API/Element.scrollIntoView */
+                                document.getElementById('under_tweets')
+                                    .scrollIntoView(false)
+                                ;
                             }
                         });
                         

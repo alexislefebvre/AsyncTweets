@@ -18,12 +18,15 @@
         {% endfor %}
     </div>
     
-    {# display navigation #}
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+    <p id="under_tweets"></p>
     
-    <div class="alert alert-info" role="alert">
-        Press <kbd>←</kbd> and <kbd>→</kbd> to go to previous or next page.
+    {# display navigation #}
+    <div class="navigation row">
+        <div class="col-md-6 col-sm-12">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+        <div class="col-md-6 col-sm-12 alert alert-info" role="alert">
+            Press <kbd>←</kbd> and <kbd>→</kbd> to go to previous or next page.
+        </div>
     </div>
 {% endblock %}
