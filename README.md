@@ -14,17 +14,6 @@ The goal of this project is to create an online Twitter reader built with [Symfo
  - Display the tweets with a pagination
  - Display images below tweets
 
-### TODO
-
- - Highlight RT (ReTweets)
- - Display tweets since last visit (for example by using a cookie)
- - Add OAuth authentification to identify an user with its Twitter account (may avoid requesting a key for this app)
- - Keep pagination numbers consistent even if tweets are added (new tweets added by cron) or removed (old tweets purged)
- - Display tweets on CLI (Command Line Interface)
- - Group tweets by user
- - Add tests with code coverage
- - Reorganise files to make a bundle, and add a `composer.json` file to automate the install
-
 ## Installation
 
 ### Requirements:
@@ -52,6 +41,11 @@ The goal of this project is to create an online Twitter reader built with [Symfo
  - [symfony/symfony][4] (2.6)
  - [abraham/twitteroauth][5] (0.5.0)
  - [KnpLabs/KnpPaginatorBundle][6] (2.4.*@dev)
+ 
+### Development environment
+
+ - [doctrine/doctrine-fixtures-bundle][7] (~2.2)
+ - [liip/functional-test-bundle][8] (~1.0)
 
 [Master image]: https://travis-ci.org/alexislefebvre/AsyncTweets.svg?branch=master
 [Master]: https://travis-ci.org/alexislefebvre/AsyncTweets
@@ -61,3 +55,5 @@ The goal of this project is to create an online Twitter reader built with [Symfo
 [4]: https://github.com/symfony/symfony
 [5]: https://github.com/abraham/twitteroauth
 [6]: https://github.com/KnpLabs/KnpPaginatorBundle
+[7]: https://github.com/doctrine/doctrine-fixtures-bundle
+[8]: https://github.com/liip/functional-test-bundle
