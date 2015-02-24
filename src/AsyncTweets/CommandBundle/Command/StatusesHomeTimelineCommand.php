@@ -195,9 +195,21 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
                             continue;
                         }
                         
-                        $media = new Media();
+                        # Media
+                        $media = $this->em
+                            ->getRepository('AsyncTweetsTweetBundle:Media')
+                            ->findOneById($mediaTmp->id)
+                        ;
+                        
+                        if (! $media)
+                        {
+                            $media = new Media();
+                            $media
+                                ->setId($mediaTmp->id)
+                            ;
+                        }
+                        
                         $media
-                            ->setId($mediaTmp->id)
                             ->setMediaUrlHttps($mediaTmp->media_url)
                             ->setUrl($mediaTmp->url)
                             ->setDisplayUrl($mediaTmp->display_url)
