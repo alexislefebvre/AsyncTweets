@@ -228,11 +228,11 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
             
             if ($input->getOption('table'))
             {
-                $rows[] = array(
+                $table->addRow(array(
                     $tweetTmp->created_at,
                     mb_substr($tweetTmp->text, 0, 20),
                     $userTmp->name
-                );
+                ));
             }
             
             $progress->advance();
@@ -243,10 +243,6 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
         
         if ($input->getOption('table'))
         {
-            $table
-                ->setRows($rows)
-            ;
-            
             $table->render($output);
         }
     }
