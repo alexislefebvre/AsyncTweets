@@ -1,15 +1,16 @@
 {% extends 'AsyncTweetsWebsiteBundle::layout.html.twig' %}
 
-{% block title %}Home timeline{% endblock %}
+{% block title %}Home timeline - page {{ page }}{% endblock %}
 
 {% block content %}
-    <div class="count">
-        {{ pagination.getTotalItemCount }} tweets
-    </div>
-    
     {# display navigation #}
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
+    <div class="navigation row">
+        <div class="col-sm-9 col-xs-12">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+        <div class="col-sm-3 col-xs-3 count alert alert-info">
+            {{ pagination.getTotalItemCount }} tweets
+        </div>
     </div>
     
     <div class="tweets">
@@ -18,14 +19,12 @@
         {% endfor %}
     </div>
     
-    <p id="under_tweets"></p>
-    
     {# display navigation #}
     <div class="navigation row">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-sm-9 col-xs-12">
             {{ knp_pagination_render(pagination) }}
         </div>
-        <div class="col-md-6 col-sm-12 alert alert-info" role="alert">
+        <div class="col-sm-3 col-xs-12 alert alert-info" role="alert">
             Press <kbd>←</kbd> and <kbd>→</kbd> to go to previous or next page.
         </div>
     </div>

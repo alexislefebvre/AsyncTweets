@@ -13,16 +13,19 @@ class DefaultController extends Controller
             ->getRepository('AsyncTweetsTweetBundle:Tweet')
             ->getWithUsersAndMedias();
         
+        $page = $request->query->get('page', 1);
+        
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $tweets,
-            $request->query->get('page', 1)/*page number*/,
+            $page/*page number*/,
             10/*limit per page*/
         );
-            
+        
         return $this->render(
             'AsyncTweetsWebsiteBundle:Default:index.html.twig',
             array(
+                'page' => $page,
                 'pagination' => $pagination
             )
         );

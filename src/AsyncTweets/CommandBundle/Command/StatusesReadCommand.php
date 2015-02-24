@@ -72,19 +72,17 @@ class StatusesReadCommand extends ContainerAwareCommand
             $table->addRows(array(
                 array(
                     '<info>'.
-                        # Add <info> in order to close <info> before
-                        #  each new line
+                        # Close and reopen the tag before each new line
                         str_replace("\n", "</info>\n<info>",
                             wordwrap($tweet->getUser()->getName(), 13, "\n")
                         ).
                     '</info>',
                     
                     '<comment>'.
-                    # Add <info> in order to close <info> before
-                    #  each new line
-                    str_replace("\n", "</comment>\n<comment>",
-                        wordwrap($tweet->getText(), 40, "\n")
-                    ).
+                        # Close and reopen the tag before each new line
+                        str_replace("\n", "</comment>\n<comment>",
+                            wordwrap($tweet->getText(), 40, "\n")
+                        ).
                     '</comment>',
                     
                     $tweet->getCreatedAt()->format('Y-m-d H:i'),

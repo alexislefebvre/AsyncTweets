@@ -35,7 +35,7 @@ class TweetRepository extends EntityRepository
             ->addSelect('medias')
             ->leftJoin('t.medias', 'medias')
             
-            ->orderBy('t.id', 'DESC')
+            ->orderBy('t.id', 'ASC')
         ;
         
         return $qb->getQuery()->getResult();

@@ -17,6 +17,7 @@
             div.navbar-inverse {
                 margin-bottom: 0px;
             }
+            .pagination {margin:10px 0px;}
         </style>
     </head>
     
@@ -140,12 +141,17 @@
                     if ([37,39].indexOf(event.which) !== -1) {
                         var text = ((event.which == 37) ? 'Previous' : 'Next');
                         
-                        var el = $('div.navigation:first > ul.pagination > li > a:contains("' + text + '")');
+                        var el = $('div.navigation:first > div > ul.pagination > li > a:contains("' + text + '")');
                         
                         if (el.length != 0) {
                             // http://www.w3schools.com/jsref/met_html_click.asp
                             el.get(0).click();
                         }
+                        
+                        $('html, body').animate({
+                            scrollTop: $('main.container > div.tweets')
+                                .last().offset().top
+                        }, 500);
                         
                         return false;
                     }
@@ -156,24 +162,30 @@
                 /* http://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements/1207393#1207393 */
                 $('main.container').on(
                     'click',
-                    'div.navigation > ul.pagination > li > a',
+                    'div.navigation > div > ul.pagination > li > a',
                     function(event) {
                         $.ajax({
                             url: $(this).attr('href'),
                             success: function( data ) {
+                                var $data = $("<div>").html(data);
+                                
                                 $('main.container').html(
-                                    $("<div>")
-                                        .html(data)
+                                    $data
                                         .find('main.container')
                                         .html()
                                 );
                                 
                                 externalLinks('main.container div.tweets');
                                 
-                                /* https://developer.mozilla.org/fr/docs/Web/API/Element.scrollIntoView */
-                                document.getElementById('under_tweets')
-                                    .scrollIntoView(false)
-                                ;
+                                /* http://stackoverflow.com/questions/3338642/updating-address-bar-with-new-url-without-hash-or-reloading-the-page/3340186#3340186 */
+                                window.history.pushState(
+                                    data,
+                                    $data.find('title').text(),
+                                    this.url
+                                );
+                                
+                                /* update the <title> */
+                                $('title').text($data.find('title').text());
                             }
                         });
                         
