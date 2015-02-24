@@ -33,7 +33,7 @@ class DefaultControllerTest extends WebTestCase
         
         # <title>
         $this->assertEquals(1,
-            $crawler->filter('title:contains("Home timeline - AsyncTweets")')->count());
+            $crawler->filter('title:contains("Home timeline - page 1 - AsyncTweets")')->count());
         
         # 2 navigation blocks
         $this->assertEquals(2,
