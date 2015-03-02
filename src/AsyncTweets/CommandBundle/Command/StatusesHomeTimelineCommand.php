@@ -28,7 +28,7 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
         $this->container = $this->getContainer();
         
         // This loads Doctrine, you can load your own services as well
-        $this->em = $this->container>get('doctrine')
+        $this->em = $this->container->get('doctrine')
             ->getManager();
     }
     
