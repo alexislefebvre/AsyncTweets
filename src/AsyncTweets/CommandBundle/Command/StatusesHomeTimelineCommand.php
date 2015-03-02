@@ -18,6 +18,7 @@ use AsyncTweets\TweetBundle\Entity\Media;
 
 class StatusesHomeTimelineCommand extends ContainerAwareCommand
 {
+    protected $container;
     protected $em;
     
     protected function initialize(InputInterface $input, OutputInterface $output)
@@ -27,7 +28,7 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
         $this->container = $this->getContainer();
         
         // This loads Doctrine, you can load your own services as well
-        $this->em = $this->getContainer()->get('doctrine')
+        $this->em = $this->container->get('doctrine')
             ->getManager();
     }
     
@@ -45,13 +46,11 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $container = $this->getContainer();
-        
         $connection = new TwitterOAuth(
-            $container->getParameter('twitter_consumer_key'),
-            $container->getParameter('twitter_consumer_secret'),
-            $container->getParameter('twitter_token'),
-            $container->getParameter('twitter_token_secret')
+            $this->container->getParameter('twitter_consumer_key'),
+            $this->container->getParameter('twitter_consumer_secret'),
+            $this->container->getParameter('twitter_token'),
+            $this->container->getParameter('twitter_token_secret')
         );
         
         /** @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline */
