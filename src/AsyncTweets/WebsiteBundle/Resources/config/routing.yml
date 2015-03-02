@@ -2,3 +2,13 @@
 asynctweets_website_homepage:
     pattern:  /
     defaults: { _controller: AsyncTweetsWebsiteBundle:Default:index }
+
+asynctweets_website_sinceTweetId:
+    pattern:  /sinceId/{lastTweetId}
+    defaults: { _controller: AsyncTweetsWebsiteBundle:Default:index }
+    requirements:
+        lastTweetId: \d+
+
+asynctweets_website_reset_cookie:
+    pattern:  /resetCookie
+    defaults: { _controller: AsyncTweetsWebsiteBundle:Default:resetCookie }

@@ -25,7 +25,7 @@ class TweetRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
-    public function getWithUsersAndMedias()
+    public function getWithUsersAndMedias($lastTweetId = null)
     {
         $qb = $this->createQueryBuilder('t')
                 
@@ -36,8 +36,40 @@ class TweetRepository extends EntityRepository
             ->leftJoin('t.medias', 'medias')
             
             ->orderBy('t.id', 'ASC')
+            ->setFirstResult(0)
+            ->setMaxResults(10)
         ;
         
+        if (! is_null($lastTweetId))
+        {
+            $qb = $qb
+                ->where(
+                    $qb->expr()->gt('t.id', $lastTweetId)
+                )
+            ;
+        }
+        
         return $qb->getQuery()->getResult();
+    }
+    
+    public function countPendingTweets($lastTweetId = null)
+    {
+        $qb = $this->createQueryBuilder('t');
+        
+        $qb = $qb
+            ->add('select', $qb->expr()->count('t.id'))
+        ;
+        
+        if (! is_null($lastTweetId))
+        {
+            $qb = $qb
+                ->where(
+                    $qb->expr()->gt('t.id', $lastTweetId)
+                )
+            ;
+        }
+        
+        # return COUNT() result
+        return $qb->getQuery()->getSingleScalarResult();
     }
 }
