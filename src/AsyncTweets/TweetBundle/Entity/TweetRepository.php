@@ -44,7 +44,7 @@ class TweetRepository extends EntityRepository
         {
             $qb = $qb
                 ->where(
-                    $qb->expr()->gt('t.id', $lastTweetId)
+                    $qb->expr()->gte('t.id', $lastTweetId)
                 )
             ;
         }
@@ -64,7 +64,7 @@ class TweetRepository extends EntityRepository
         {
             $qb = $qb
                 ->where(
-                    $qb->expr()->gt('t.id', $lastTweetId)
+                    $qb->expr()->gte('t.id', $lastTweetId)
                 )
             ;
         }

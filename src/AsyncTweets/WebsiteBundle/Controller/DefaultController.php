@@ -17,26 +17,29 @@ class DefaultController extends Controller
             ->getWithUsersAndMedias($lastTweetId);
         
         $lastTweetId = null;
+        $nextLastTweetId = null;
         
         if (count($tweets) > 0)
         {
-            $lastTweetId = $tweets[count($tweets) - 1]->getId();
+            $lastTweetId = $tweets[0]->getId();
+            $nextLastTweetId = ($tweets[count($tweets) - 1]->getId() + 1);
         }
         
         $numberOfTweets = $this->getDoctrine()
             ->getRepository('AsyncTweetsTweetBundle:Tweet')
             ->countPendingTweets($lastTweetId);
         
+        $lastTweetIdCookie = $lastTweetId;
+        
+        if ($request->cookies->has('lastTweetId'))
+        {
+            $lastTweetIdCookie = $request->cookies->get('lastTweetId');
+        }
+        
         $response = new Response();
         
-        $response = $this->render(
-            'AsyncTweetsWebsiteBundle:Default:index.html.twig',
-            array(
-                'tweets' => $tweets,
-                'lastTweetId' => $lastTweetId,
-                'numberOfTweets' => $numberOfTweets,
-            )
-        );
+        # No cookie by default
+        $cookie = null;
         
         if (
             (! is_null($lastTweetId))
@@ -51,6 +54,23 @@ class DefaultController extends Controller
             
             # Set last Tweet Id
             $cookie = new Cookie('lastTweetId', $lastTweetId, $nextYear);
+            
+            $lastTweetIdCookie = $lastTweetId;
+        }
+        
+        $response = $this->render(
+            'AsyncTweetsWebsiteBundle:Default:index.html.twig',
+            array(
+                'tweets' => $tweets,
+                'lastTweetId' => $lastTweetId,
+                'lastTweetIdCookie' => $lastTweetIdCookie,
+                'nextLastTweetId' => $nextLastTweetId,
+                'numberOfTweets' => $numberOfTweets,
+            )
+        );
+        
+        if (! is_null($cookie))
+        {
             $response->headers->setCookie($cookie);
         }
         

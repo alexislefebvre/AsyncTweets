@@ -14,10 +14,10 @@ endif%}{% endblock %}
                     <span>«&nbsp;Previous</span>
                 </li>
                 
-                {% if (lastTweetId is not null) %}
+                {% if (nextLastTweetId is not null) %}
                     <li>
                         <a href="{{ path('asynctweets_website_sinceTweetId', {
-                            'lastTweetId': lastTweetId
+                            'lastTweetId': nextLastTweetId
                         }) }}">Next&nbsp;»</a>
                     </li>
                 {% else %}
@@ -36,8 +36,8 @@ endif%}{% endblock %}
                 <p>
                     Last tweet id:
                     <a href="{{ path('asynctweets_website_sinceTweetId', {
-                            'lastTweetId': lastTweetId
-                        }) }}">{{ lastTweetId }}</a>
+                            'lastTweetId': lastTweetIdCookie
+                        }) }}">{{ lastTweetIdCookie }}</a>
                     <a href="{{ path('asynctweets_website_reset_cookie') }}">
                         <button type="button" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
