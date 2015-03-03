@@ -32,7 +32,6 @@ endif%}{% endblock %}
         {{ pagination }}
         
         <div class="col-sm-7 col-xs-12 count alert alert-info">
-            {% set lastTweetId = app.request.cookies.get('lastTweetId') %}
             {% if (lastTweetId is not null) %}
                 <p>
                     Last tweet id:
