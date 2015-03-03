@@ -4,8 +4,8 @@
 
 http://asynctweets.alexislefebvre.com/demo/
 
-Note: the last tweet of a page will be shown on the next page because of a 32-bit PHP version.
-The last tweet of a page won't be shown on the next page on a 64-bit PHP version.
+Note: the last tweet of a page will be shown on the "*Next »*" page because of a 32-bit PHP version.
+The last tweet of a page won't be shown on the "*Next »*" page on a 64-bit PHP version.
 
 ## Goal
 
