@@ -22,7 +22,15 @@ class DefaultController extends Controller
         if (count($tweets) > 0)
         {
             $lastTweetId = $tweets[0]->getId();
-            $nextLastTweetId = ($tweets[count($tweets) - 1]->getId() + 1);
+            
+            $nextLastTweetId = $tweets[count($tweets) - 1]->getId();
+            
+            # Only perform addition on a 64-bits system
+            /** @see http://stackoverflow.com/questions/2353473/can-php-tell-if-the-server-os-it-64-bit/6304354#6304354 */
+            if (PHP_INT_SIZE === 8)
+            {
+                $nextLastTweetId = ($tweets[count($tweets) - 1]->getId() + 1);
+            }
         }
         
         $numberOfTweets = $this->getDoctrine()
