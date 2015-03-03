@@ -4,6 +4,9 @@
 
 http://asynctweets.alexislefebvre.com/demo/
 
+Note: the last tweet of a page will be shown on the next page because of a 32-bit PHP version.
+The last tweet of a page won't be shown on the next page on a 64-bit PHP version.
+
 ## Goal
 
 The goal of this project is to create an online Twitter reader built with [Symfony2][1]. AyncTweets will retrieve and store your timeline, allowing to read your Twitter timeline even if you're away from <s>the keyboard</s> your Twitter client several days.
