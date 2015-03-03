@@ -46,8 +46,11 @@ class DefaultController extends Controller
             ($lastTweetId > $request->cookies->get('lastTweetId'))
         )
         {
+            $nextYear = new \Datetime('now');
+            $nextYear->add(new \DateInterval('P1Y'));
+            
             # Set last Tweet Id
-            $cookie = new Cookie('lastTweetId', $lastTweetId);
+            $cookie = new Cookie('lastTweetId', $lastTweetId, $nextYear);
             $response->headers->setCookie($cookie);
         }
         
