@@ -12,14 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class TweetRepository extends EntityRepository
 {
-    public function getWithUsers()
+    private $nbTweets = 10;
+    
+    public function getWithUsers($page = 1)
     {
+        $firstResult = (($page - 1) * $this->nbTweets);
         $qb = $this->createQueryBuilder('t')
                 
             ->addSelect('user')
             ->innerJoin('t.user', 'user')
             
             ->orderBy('t.id', 'DESC')
+            
+            ->setFirstResult($firstResult)
+            ->setMaxResults($this->nbTweets)
         ;
         
         return $qb->getQuery()->getResult();
@@ -37,7 +43,7 @@ class TweetRepository extends EntityRepository
             
             ->orderBy('t.id', 'ASC')
             ->setFirstResult(0)
-            ->setMaxResults(10)
+            ->setMaxResults($this->nbTweets)
         ;
         
         if (! is_null($lastTweetId))

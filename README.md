@@ -9,7 +9,7 @@ The last tweet of a page won't be shown on the next page on a 64-bit PHP version
 
 ## Goal
 
-The goal of this project is to create an online Twitter reader built with [Symfony2][1]. AyncTweets will retrieve and store your timeline, allowing to read your Twitter timeline even if you're away from <s>the keyboard</s> your Twitter client several days.
+The goal of this project is to create an online Twitter reader built with [Symfony2][Symfony2]. AyncTweets will retrieve and store your timeline, allowing to read your Twitter timeline even if you're away from <s>the keyboard</s> your Twitter client several days.
 
 ## Features
 
@@ -21,14 +21,14 @@ The goal of this project is to create an online Twitter reader built with [Symfo
 
 ### Requirements:
 
- - [Twitter keys][2]
+ - [Twitter keys][Twitter keys]
  - PHP >= 5.4 (required by abraham/twitteroauth[0.5.0])
  - a database (must be supported by Doctrine2)
 
 ### Steps:
  
  1. Clone this repository
- 2. Install [Composer][3] (`php -r "readfile('https://getcomposer.org/installer');" | php`)
+ 2. Install [Composer][Composer] (`php -r "readfile('https://getcomposer.org/installer');" | php`)
  3. Install the vendors: `php composer.phar install --prefer-dist --no-dev -vvv --profile` and enter your Twitter keys at the end of the installation wizard (you can still add the keys later by editing the `app/config/parameters.yml` file)
  4. Create the database and create the tables: `php app/console doctrine:schema:update --force --env=prod`
  5. Launch this command to fetch tweets: `php app/console statuses:hometimeline --table`, with the ` --table` option the imported tweets will be shown
@@ -41,22 +41,20 @@ The goal of this project is to create an online Twitter reader built with [Symfo
 
 ## Dependencies
 
- - [symfony/symfony][4] (2.6)
- - [abraham/twitteroauth][5] (0.5.0)
- - [KnpLabs/KnpPaginatorBundle][6] (2.4.*@dev)
+ - [symfony/symfony][Symfony2 GitHub] (2.6)
+ - [abraham/twitteroauth][twitteroauth] (0.5.0)
  
 ### Development environment
 
- - [doctrine/doctrine-fixtures-bundle][7] (~2.2)
- - [liip/functional-test-bundle][8] (~1.0)
+ - [doctrine/doctrine-fixtures-bundle][doctrine-fixtures-bundle] (~2.2)
+ - [liip/functional-test-bundle][functional-test-bundle] (~1.0)
 
 [Master image]: https://travis-ci.org/alexislefebvre/AsyncTweets.svg?branch=master
 [Master]: https://travis-ci.org/alexislefebvre/AsyncTweets
-[1]: http://symfony.com/
-[2]: https://apps.twitter.com/
-[3]: https://getcomposer.org/download/
-[4]: https://github.com/symfony/symfony
-[5]: https://github.com/abraham/twitteroauth
-[6]: https://github.com/KnpLabs/KnpPaginatorBundle
-[7]: https://github.com/doctrine/doctrine-fixtures-bundle
-[8]: https://github.com/liip/functional-test-bundle
+[Symfony2]: http://symfony.com/
+[Twitter keys]: https://apps.twitter.com/
+[Composer]: https://getcomposer.org/download/
+[Symfony2 GitHub]: https://github.com/symfony/symfony
+[twitteroauth]: https://github.com/abraham/twitteroauth
+[doctrine-fixtures-bundle]: https://github.com/doctrine/doctrine-fixtures-bundle
+[functional-test-bundle]: https://github.com/liip/functional-test-bundle

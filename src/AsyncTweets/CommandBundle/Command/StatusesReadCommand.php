@@ -21,7 +21,7 @@ class StatusesReadCommand extends ContainerAwareCommand
         $this->container = $this->getContainer();
         
         // This loads Doctrine, you can load your own services as well
-        $this->em = $this->getContainer()->get('doctrine')
+        $this->em = $this->container->get('doctrine')
             ->getManager();
     }
     
@@ -47,14 +47,14 @@ class StatusesReadCommand extends ContainerAwareCommand
         # Get the tweets
         $tweets = $this->em
             ->getRepository('AsyncTweetsTweetBundle:Tweet')
-            ->getWithUsers();
+            ->getWithUsers($page);
         
-        $paginator = $this->container->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $tweets,
-            $page/*page number*/,
-            10/*limit per page*/
-        );
+        if (! $tweets)
+        {
+            $output->writeln('<info>No tweet to display.</info>');
+            
+            return 0;
+        }
         
         $table = $this->getHelper('table');
         $table
@@ -67,7 +67,7 @@ class StatusesReadCommand extends ContainerAwareCommand
             ))
         ;
         
-        foreach ($pagination as $tweet)
+        foreach ($tweets as $tweet)
         {
             $table->addRows(array(
                 array(
