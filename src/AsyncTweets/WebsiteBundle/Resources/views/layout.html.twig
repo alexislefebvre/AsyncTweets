@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                  <a href="{{ path('asynctweets_website_homepage') }}"
+                  <a href="{{ path('asynctweets_homepage') }}"
                       class="navbar-brand">
                         AsyncTweets
                   </a>
@@ -41,16 +41,21 @@
                 
                 <nav class="collapse navbar-collapse">
                   <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">
+                    <li{{ ((activeTab == 'tweets') ? ' class="active"') }}>
+                        <a href="{{ path('asynctweets_tweets_sinceTweetId', {
+                            'lastTweetId': lastTweetId
+                        }) }}">
                             <span class="glyphicon glyphicon-th-list"></span>
                             Tweets
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    
+                    <li{{ ((activeTab == 'tweets_orderByUser') ? ' class="active"') }}>
+                        <a href="{{ path('asynctweets_tweets_orderByUser_sinceTweetId', {
+                            'lastTweetId': lastTweetId
+                        }) }}">
                             <span class="glyphicon glyphicon-user"></span>
-                            Users
+                            Tweets by Users
                         </a>
                     </li>
                   </ul>

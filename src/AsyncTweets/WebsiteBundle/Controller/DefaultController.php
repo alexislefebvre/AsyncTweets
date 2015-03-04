@@ -10,11 +10,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
 {
-    public function indexAction(Request $request, $lastTweetId = null)
+    public function indexAction(Request $request, $lastTweetId = null,
+        $orderByUser = false)
     {
         $tweets = $this->getDoctrine()
             ->getRepository('AsyncTweetsTweetBundle:Tweet')
-            ->getWithUsersAndMedias($lastTweetId);
+            ->getWithUsersAndMedias($lastTweetId, $orderByUser);
         
         $lastTweetId = null;
         $nextLastTweetId = null;
@@ -31,17 +32,33 @@ class DefaultController extends Controller
             {
                 $nextLastTweetId = ($tweets[count($tweets) - 1]->getId() + 1);
             }
+            
+            $numberOfTweets = $this->getDoctrine()
+                ->getRepository('AsyncTweetsTweetBundle:Tweet')
+                ->countPendingTweets($lastTweetId);
         }
-        
-        $numberOfTweets = $this->getDoctrine()
-            ->getRepository('AsyncTweetsTweetBundle:Tweet')
-            ->countPendingTweets($lastTweetId);
+        else
+        {
+            $lastTweetId = $request->cookies->get('lastTweetId');
+            $numberOfTweets = 0;
+        }
         
         $lastTweetIdCookie = $lastTweetId;
         
         if ($request->cookies->has('lastTweetId'))
         {
             $lastTweetIdCookie = $request->cookies->get('lastTweetId');
+        }
+        
+        if ($orderByUser)
+        {
+            $route = 'asynctweets_tweets_orderByUser_sinceTweetId';
+            $activeTab = 'tweets_orderByUser';
+        }
+        else
+        {
+            $route = 'asynctweets_tweets_sinceTweetId';
+            $activeTab = 'tweets';
         }
         
         $response = new Response();
@@ -69,6 +86,8 @@ class DefaultController extends Controller
         $response = $this->render(
             'AsyncTweetsWebsiteBundle:Default:index.html.twig',
             array(
+                'route' => $route,
+                'activeTab' => $activeTab,
                 'tweets' => $tweets,
                 'lastTweetId' => $lastTweetId,
                 'lastTweetIdCookie' => $lastTweetIdCookie,
@@ -89,7 +108,7 @@ class DefaultController extends Controller
     {
         /** @see http://www.craftitonline.com/2011/07/symfony2-how-to-set-a-cookie/ */
         $response = new RedirectResponse(
-            $this->generateUrl('asynctweets_website_homepage')
+            $this->generateUrl('asynctweets_homepage')
         );    
         
         # Reset last Tweet Id

@@ -23,7 +23,7 @@ class DefaultControllerTest extends WebTestCase
             'AsyncTweets\TweetBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
-        $path = $this->router->generate('asynctweets_website_homepage');
+        $path = $this->router->generate('asynctweets_homepage');
         
         $crawler = $this->client->request('GET', $path);
         
