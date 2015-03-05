@@ -1,4 +1,4 @@
-# AsyncTweets [![Build status][Master image]][Master]
+# AsyncTweets [![Build status][Master image]][Master] [![Scrutinizer Code Quality][Scrutinizer image]][Scrutinizer]
 
 ## Demo
 
@@ -51,6 +51,8 @@ The goal of this project is to create an online Twitter reader built with [Symfo
 
 [Master image]: https://travis-ci.org/alexislefebvre/AsyncTweets.svg?branch=master
 [Master]: https://travis-ci.org/alexislefebvre/AsyncTweets
+[Scrutinizer image]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweets/badges/quality-score.png?b=master
+[Scrutinizer]: https://scrutinizer-ci.com/g/alexislefebvre/AsyncTweets/?branch=master
 [Symfony2]: http://symfony.com/
 [Twitter keys]: https://apps.twitter.com/
 [Composer]: https://getcomposer.org/download/
