@@ -133,19 +133,6 @@ class User
     }
         
     /**
-     * Set tweets
-     *
-     * @param ArrayCollection $tweets
-     * @return User
-     */
-    public function setTweets($tweets)
-    {
-        $this->tweets = $tweets;
-        
-        return $this;
-    }
-    
-    /**
      * Get tweets
      *
      * @return ArrayCollection 

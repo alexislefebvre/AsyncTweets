@@ -2,6 +2,7 @@
 
 namespace AsyncTweets\TweetBundle\Tests\Entity;
 
+use AsyncTweets\TweetBundle\Entity\Media;
 use AsyncTweets\TweetBundle\Entity\Tweet;
 use AsyncTweets\TweetBundle\Entity\User;
 
@@ -11,6 +12,17 @@ class TweetTest extends \PHPUnit_Framework_TestCase
     {
         $now = new \Datetime('now');
         
+        # Media
+        $media = new Media();
+        $media
+            ->setId(567836200242003968)
+            ->setMediaUrlHttps('http://pbs.twimg.com/media/B-FcA_4IQAAErQF.jpg')
+            ->setUrl('http://t.co/rX1oieH1ug')
+            ->setDisplayUrl('pic.twitter.com/rX1oieH1ug')
+            ->setExpandedUrl('http://twitter.com/AsyncTweets/status/567836201210900480/photo/1')
+        ;
+        
+        # Tweet
         $tweet = new Tweet();
         $tweet
             ->setId(565939802152120320)
@@ -18,6 +30,7 @@ class TweetTest extends \PHPUnit_Framework_TestCase
             ->setText('Hello World!')
             ->setRetweetCount(1999)
             ->setFavoriteCount(42)
+            ->addMedia($media)
         ;
         
         $this->assertEquals(

@@ -7,7 +7,6 @@
 AsyncTweets\TweetBundle\Entity\Media:
     type: entity
     table: media
-    repositoryClass: AsyncTweets\TweetBundle\Entity\MediaRepository
     id:
         id:
             type: bigint

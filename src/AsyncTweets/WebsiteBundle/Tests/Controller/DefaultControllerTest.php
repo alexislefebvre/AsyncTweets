@@ -12,10 +12,30 @@ class DefaultControllerTest extends WebTestCase
     public function setUp()
     {
         $this->client = static::createClient();
+        $this->client->followRedirects();
         $this->router = $this->client->getContainer()->get('router');
     }
     
-    public function testIndex()
+    public function testNoTweets()
+    {
+        $this->loadFixtures(array());
+        
+        $path = $this->router->generate('asynctweets_homepage');
+        
+        $crawler = $this->client->request('GET', $path);
+        
+        # <body>
+        $this->assertEquals(1,
+            $crawler->filter('html > body')->count());
+        
+        # Tweet
+        $this->assertEquals(0,
+            $crawler->filter(
+                'main.container > div.tweets > div.media > blockquote.media-body'
+            )->count());        
+    }
+    
+    public function testTweets($path = null)
     {
         $this->loadFixtures(array(
             'AsyncTweets\TweetBundle\DataFixtures\ORM\LoadUserData',
@@ -23,7 +43,10 @@ class DefaultControllerTest extends WebTestCase
             'AsyncTweets\TweetBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
-        $path = $this->router->generate('asynctweets_homepage');
+        if (is_null($path))
+        {
+            $path = $this->router->generate('asynctweets_homepage');
+        }
         
         $crawler = $this->client->request('GET', $path);
         
@@ -67,5 +90,49 @@ class DefaultControllerTest extends WebTestCase
             $crawler->filter(
                 'main.container > div.tweets > div.media > blockquote.media-body > small > a:contains("Asynchronous tweets")'
             )->count());
+    }
+    
+    public function testSinceTweetId()
+    {
+        $this->testTweets(
+            $this->router->generate(
+                'asynctweets_tweets_sinceTweetId',
+                array('lastTweetId' => 565258739000049664)
+            )
+        );   
+    }
+    
+    public function testOrderByUserSinceTweetId()
+    {
+        $this->testTweets(
+            $this->router->generate(
+                'asynctweets_tweets_orderByUser_sinceTweetId',
+                array('lastTweetId' => 565258739000049664)
+            )
+        );        
+    }
+    
+    public function testResetCookie()
+    {
+        $this->loadFixtures(array(
+            'AsyncTweets\TweetBundle\DataFixtures\ORM\LoadUserData',
+            'AsyncTweets\TweetBundle\DataFixtures\ORM\LoadTweetData',
+            'AsyncTweets\TweetBundle\DataFixtures\ORM\LoadMediaData',
+        ));
+        
+        $path = $this->router->generate('asynctweets_tweets_reset_cookie');
+        
+        $this->client->request('GET', $path);
+        
+        $cookieJar = $this->client->getCookieJar();
+        
+        # Test the cookie
+        $this->assertEquals(
+            565258739000049664,
+            $cookieJar->get('lastTweetId')->getValue()
+        );
+        
+        # TODO: test the redirection
+        //$this->assertTrue($this->client->getResponse()->isRedirect());
     }
 }

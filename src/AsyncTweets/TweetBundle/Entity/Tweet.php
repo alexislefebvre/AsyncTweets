@@ -200,19 +200,6 @@ class Tweet
     }
     
     /**
-     * Set medias
-     *
-     * @param ArrayCollection $medias
-     * @return Tweet
-     */
-    public function setMedias($medias)
-    {
-        $this->medias = $medias;
-        
-        return $this;
-    }
-    
-    /**
      * Get medias
      *
      * @return ArrayCollection 

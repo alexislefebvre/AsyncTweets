@@ -161,29 +161,6 @@ class Media
     }
     
     /**
-     * Set tweets
-     *
-     * @param ArrayCollection $tweets
-     * @return User
-     */
-    public function setTweets($tweets)
-    {
-        $this->tweets = $tweets;
-        
-        return $this;
-    }
-    
-    /**
-     * Get tweets
-     *
-     * @return ArrayCollection 
-     */
-    public function getTweets()
-    {
-        return $this->tweets;
-    }
-    
-    /**
      * Add a tweet
      *
      * @return User
