@@ -1,70 +1,69 @@
 <?php
 
-namespace AsyncTweets\CommandBundle\Tests\Entity;
+namespace AsyncTweets\CommandBundle\Tests;
 
-use AsyncTweets\TweetBundle\Entity\Tweet;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Tester\CommandTester;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
-class StatusesHomeTimelineTest extends \PHPUnit_Framework_TestCase
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+use AsyncTweets\CommandBundle\Command\StatusesHomeTimelineCommand;
+
+/**
+ * @see http://symfony.com/doc/current/cookbook/console/console_command.html#testing-commands
+ */
+class StatusesHomeTimelineTest extends WebTestCase
 {
-    public function testReadTweet()
+    public function testStatusesHomeTimelineEmpty()
     {
-        $tweetJSON = file_get_contents(
-            dirname(__FILE__).'/data/tweet_with_hashtag_link_and_image.json');
+        $this->loadFixtures(array());
         
-        $tweet = json_decode($tweetJSON);
+        $kernel = $this->createKernel();
+        $kernel->boot();
         
-        $this->assertEquals(
-            'Fri Feb 13 16:02:45 +0000 2015', 
-            $tweet->created_at
+        $application = new Application($kernel);
+        $application->add(new StatusesHomeTimelineCommand());
+
+        $command = $application->find('statuses:hometimeline');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array(
+            '--test' => true
+        ));
+
+        $this->assertRegExp('/Number of tweets: 3/', $commandTester->getDisplay());
+    }
+    
+    public function testStatusesHomeTimelineWithTweets()
+    {
+        $this->loadFixtures(array());
+        
+        /** @see http://symfony.com/doc/current/cookbook/console/console_command.html#testing-commands */
+        $kernel = $this->createKernel();
+        $kernel->boot();
+        
+        $application = new Application($kernel);
+        $application->add(new StatusesHomeTimelineCommand());
+        
+        $command = $application->find('statuses:hometimeline');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array(
+            '--table' => true,
+            '--test' => true
+        ));
+        
+        $display = $commandTester->getDisplay();
+        
+        $this->assertRegExp('/Number of tweets: 3/', $display);
+        
+        # Test the first line of the table
+        $this->assertRegExp(
+            '/| Wed Feb 18 00:01:14 +0000 2015 | '.
+                '#image #test http:\/\/ | '.
+                'Asynchronous tweets |/',
+            $display
         );
-        
-        $this->assertEquals(
-            566266232190418946,
-            $tweet->id
-        );
-        
-        $this->assertEquals(
-            '566266232190418946',
-            $tweet->id_str
-        );
-        
-        $this->assertEquals(
-            'Twitter France',
-            $tweet->user->name
-        );
-        
-        $this->assertEquals(
-            'TwitterFrance',
-            $tweet->user->screen_name
-        );
-        
-        $tweetObject = new Tweet();
-        $tweetObject
-            ->setId($tweet->id)
-            ->setCreatedAt(new \Datetime($tweet->created_at))
-            ->setRetweetCount($tweet->retweet_count)
-            ->setFavoriteCount($tweet->favorite_count)
-        ;
-        
-        $this->assertEquals(
-            566266232190418946,
-            $tweetObject->getId()
-        );
-        
-        $this->assertEquals(
-            new \Datetime('Fri Feb 13 16:02:45 +0000 2015'),
-            $tweetObject->getCreatedAt()
-        );
-        
-        $this->assertEquals(
-            68,
-            $tweetObject->getRetweetCount()
-        );
-        
-        $this->assertEquals(
-            34,
-            $tweetObject->getFavoriteCount()
-        );
-        
+        $this->assertRegExp('/(.*)Wed Feb 18 00:01:14 \+0000 2015(.*)/', $display);
     }
 }

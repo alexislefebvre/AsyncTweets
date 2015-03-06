@@ -41,17 +41,21 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
             ->setDescription('Fetch home timeline')
             # http://symfony.com/doc/2.3/cookbook/console/console_command.html#automatically-registering-commands
             ->addOption('table', null, InputOption::VALUE_NONE, 'Display a table with tweets')
+            ->addOption('test', null, InputOption::VALUE_NONE, 'Read a tweet from a JSON file')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $connection = new TwitterOAuth(
-            $this->container->getParameter('twitter_consumer_key'),
-            $this->container->getParameter('twitter_consumer_secret'),
-            $this->container->getParameter('twitter_token'),
-            $this->container->getParameter('twitter_token_secret')
-        );
+        if (! $input->getOption('test'))
+        {
+            $connection = new TwitterOAuth(
+                $this->container->getParameter('twitter_consumer_key'),
+                $this->container->getParameter('twitter_consumer_secret'),
+                $this->container->getParameter('twitter_token'),
+                $this->container->getParameter('twitter_token_secret')
+            );
+        }
         
         /** @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline */
         $parameters = array(
@@ -89,7 +93,17 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
         
         $output->writeln('<comment>'.$comment.'</comment>');
         
-        $content = $connection->get('statuses/home_timeline', $parameters);
+        if (! $input->getOption('test'))
+        {
+            $content = $connection->get('statuses/home_timeline', $parameters);
+        }
+        else
+        {
+            $tweetJSON = file_get_contents(
+                dirname(__FILE__).'/../Tests/data/tweets.json');
+            
+            $content = json_decode($tweetJSON);
+        }
         
         if (! is_array($content))
         {
@@ -122,8 +136,6 @@ class StatusesHomeTimelineCommand extends ContainerAwareCommand
             $table
                 ->setHeaders(array('Datetime', 'Text excerpt', 'Name'))
             ;
-            
-            $rows = array();
         }
         
         # Iterate through the $content with the oldest tweet first
