@@ -49,7 +49,7 @@ class Media
      * Set id
      *
      * @param bigint $id
-     * @return User 
+     * @return Media 
      */
     public function setId($id)
     {
@@ -163,7 +163,7 @@ class Media
     /**
      * Add a tweet
      *
-     * @return User
+     * @return Media
      */
     public function addTweet(Tweet $tweet)
     {
