@@ -12,7 +12,6 @@ class DefaultControllerTest extends WebTestCase
     public function setUp()
     {
         $this->client = static::createClient();
-        $this->client->followRedirects();
         $this->router = $this->client->getContainer()->get('router');
     }
     
@@ -122,6 +121,8 @@ class DefaultControllerTest extends WebTestCase
         
         $path = $this->router->generate('asynctweets_tweets_reset_cookie');
         
+        $this->client->followRedirects();
+        
         $this->client->request('GET', $path);
         
         $cookieJar = $this->client->getCookieJar();
@@ -132,7 +133,11 @@ class DefaultControllerTest extends WebTestCase
             $cookieJar->get('lastTweetId')->getValue()
         );
         
-        # TODO: test the redirection
-        //$this->assertTrue($this->client->getResponse()->isRedirect());
+        # Test the redirection
+        $this->client->followRedirects(false);
+        
+        $this->client->request('GET', $path);
+        
+        $this->assertTrue($this->client->getResponse()->isRedirect());
     }
 }
