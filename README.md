@@ -1,15 +1,18 @@
 # AsyncTweets [![Build status][Master image]][Master] [![Scrutinizer Code Quality][Scrutinizer image]][Scrutinizer]
 
-## Demo
+## Links
 
-http://asynctweets.alexislefebvre.com/demo/
+Demo: http://asynctweets.alexislefebvre.com/demo/
 
-Note: the last tweet of a page will be shown on the "*Next »*" page because of a 32-bit PHP version.
+Note: on the demo, the last tweet of a page will be shown on the "*Next »*" page because of a 32-bit PHP version.
 The last tweet of a page won't be shown on the "*Next »*" page on a 64-bit PHP version.
+
+Code coverage: http://asynctweets.alexislefebvre.com/codecoverage/
 
 ## Goal
 
-The goal of this project is to create an online Twitter reader built with [Symfony2][Symfony2]. AyncTweets will retrieve and store your timeline, allowing to read your Twitter timeline even if you're away from <s>the keyboard</s> your Twitter client several days.
+The goal of this project is to create an online Twitter reader built with [Symfony2][Symfony2].
+AsyncTweets retrieves and stores your timeline, allowing to read your Twitter timeline even if you're away from your Twitter client for several days.
 
 ## Features
 
