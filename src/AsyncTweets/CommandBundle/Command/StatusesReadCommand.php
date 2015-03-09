@@ -10,21 +10,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use AsyncTweets\TweetBundle\Entity\Tweet;
 
-class StatusesReadCommand extends ContainerAwareCommand
+class StatusesReadCommand extends BaseCommand
 {
-    protected $em;
-    
-    protected function initialize(InputInterface $input, OutputInterface $output)
-    {
-        parent::initialize($input, $output); //initialize parent class method
-        
-        $this->container = $this->getContainer();
-        
-        // This loads Doctrine, you can load your own services as well
-        $this->em = $this->container->get('doctrine')
-            ->getManager();
-    }
-    
     protected function configure()
     {
         parent::configure();
