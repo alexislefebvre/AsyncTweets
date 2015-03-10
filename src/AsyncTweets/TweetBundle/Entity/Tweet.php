@@ -131,7 +131,7 @@ class Tweet
     /**
      * Set retweet_count
      *
-     * @param \int $retweetCount
+     * @param integer $retweetCount
      * @return Tweet
      */
     public function setRetweetCount($retweetCount)
@@ -144,7 +144,7 @@ class Tweet
     /**
      * Get retweet_count
      *
-     * @return \int 
+     * @return integer 
      */
     public function getRetweetCount()
     {
@@ -154,7 +154,7 @@ class Tweet
     /**
      * Set favorite_count
      *
-     * @param \int $favoriteCount
+     * @param integer $favoriteCount
      * @return Tweet
      */
     public function setFavoriteCount($favoriteCount)
@@ -167,7 +167,7 @@ class Tweet
     /**
      * Get favorite_count
      *
-     * @return \int 
+     * @return integer
      */
     public function getFavoriteCount()
     {
