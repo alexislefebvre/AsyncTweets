@@ -4,33 +4,30 @@ namespace AsyncTweets\CommandBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
-
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
 
 use AsyncTweets\CommandBundle\Command\StatusesReadCommand;
 
-/**
- * @see http://symfony.com/doc/current/cookbook/console/console_command.html#testing-commands
- */
-class StatusesReadTest extends WebTestCase
+class StatusesReadTest extends StatusesBase
 {
+    public $commandTester;
+    
+    public function setUp()
+    {
+        parent::setUp();
+        
+        $this->application->add(new StatusesReadCommand());
+
+        $command = $this->application->find('statuses:read');
+        $this->commandTester = new CommandTester($command);
+    }
+    
     public function testStatusesReadEmpty()
     {
         $this->loadFixtures(array());
         
-        $kernel = $this->createKernel();
-        $kernel->boot();
-        
-        $application = new Application($kernel);
-        $application->add(new StatusesReadCommand());
+        $this->commandTester->execute(array());
 
-        $command = $application->find('statuses:read');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute(array());
-
-        $this->assertRegExp('/Current page: 1/', $commandTester->getDisplay());
+        $this->assertRegExp('/Current page: 1/', $this->commandTester->getDisplay());
     }
     
     public function testStatusesReadWithTweets()
@@ -41,17 +38,9 @@ class StatusesReadTest extends WebTestCase
             'AsyncTweets\TweetBundle\DataFixtures\ORM\LoadMediaData',
         ));
         
-        $kernel = $this->createKernel();
-        $kernel->boot();
+        $this->commandTester->execute(array());
         
-        $application = new Application($kernel);
-        $application->add(new StatusesReadCommand());
-        
-        $command = $application->find('statuses:read');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute(array());
-        
-        $display = $commandTester->getDisplay();
+        $display = $this->commandTester->getDisplay();
         
         $this->assertRegExp('/Current page: 1/', $display);
         

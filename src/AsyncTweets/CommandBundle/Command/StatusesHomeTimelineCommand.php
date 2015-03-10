@@ -2,7 +2,6 @@
 
 namespace AsyncTweets\CommandBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -123,9 +122,10 @@ class StatusesHomeTimelineCommand extends BaseCommand
             ;
         }
         
-        # Iterate through the $content with the oldest tweet first
-        #  in order to add the oldest tweet first
-        //~ array_reverse($content);
+        # Iterate through $content in order to add the oldest tweet first, 
+        #  if there is an error the oldest tweet will still be saved
+        #  and newer tweets can be saved next time
+        $content = array_reverse($content);
         
         $progress = new ProgressBar($output, $numberOfTweets);
         $progress->setBarCharacter('<comment>=</comment>');

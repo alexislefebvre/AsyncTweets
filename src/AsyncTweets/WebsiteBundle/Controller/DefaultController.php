@@ -104,7 +104,7 @@ class DefaultController extends Controller
         return $response;
     }
     
-    public function resetCookieAction(Request $request)
+    public function resetCookieAction()
     {
         /** @see http://www.craftitonline.com/2011/07/symfony2-how-to-set-a-cookie/ */
         $response = new RedirectResponse(
