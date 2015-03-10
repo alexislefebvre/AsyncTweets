@@ -3,6 +3,8 @@ checks:
 
 filter:
     excluded_paths:
-        - Tests/*
+        - src/AsyncTweets/CommandBundle/Tests/*
+        - src/AsyncTweets/TweetBundle/Tests/*
+        - src/AsyncTweets/WebsiteBundle/Tests/*
     paths:
         - src/*
