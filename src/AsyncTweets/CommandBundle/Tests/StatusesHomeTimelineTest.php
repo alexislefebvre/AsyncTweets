@@ -40,8 +40,6 @@ class StatusesHomeTimelineTest extends StatusesBase
             '--notarray' => true
         ));
         
-        $display = $this->commandTester->getDisplay();
-        
         $this->assertRegExp('/Something went wrong, \$content is not an array./', $this->commandTester->getDisplay());
     }
     
