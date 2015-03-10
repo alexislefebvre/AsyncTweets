@@ -16,6 +16,9 @@ use AsyncTweets\TweetBundle\Entity\Media;
 
 class StatusesHomeTimelineCommand extends BaseCommand
 {
+    private $displayTable;
+    private $table;
+    
     protected function configure()
     {
         parent::configure();
@@ -122,14 +125,13 @@ class StatusesHomeTimelineCommand extends BaseCommand
             return 0;
         }
         
-        # Entity Manager
-        $em = $this->em;
+        $this->displayTable = $input->getOption('table');
         
         # Display
-        if ($input->getOption('table'))
+        if ($this->displayTable)
         {
-            $table = $this->getHelper('table');
-            $table
+            $this->table = $this->getHelper('table');
+            $this->table
                 ->setHeaders(array('Datetime', 'Text excerpt', 'Name'))
             ;
         }
@@ -145,107 +147,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
         
         foreach ($content as $tweetTmp)
         {
-            $userTmp = $tweetTmp->user;
-            
-            # User
-            $user = $this->em
-                ->getRepository('AsyncTweetsTweetBundle:User')
-                ->findOneById($userTmp->id)
-            ;
-            
-            if (! $user)
-            {
-                $user = new User();
-                
-                # Only set the id when adding the user
-                $user
-                    ->setId($userTmp->id)
-                ;
-            }
-            
-            # Update these fields
-            $user
-                ->setName($userTmp->name)
-                ->setScreenName($userTmp->screen_name)
-                ->setProfileImageUrl($userTmp->profile_image_url)
-            ;
-            
-            $em->persist($user);
-            
-            # Tweet
-            $tweet = $this->em
-                ->getRepository('AsyncTweetsTweetBundle:Tweet')
-                ->findOneById($tweetTmp->id)
-            ;
-            
-            if (! $tweet)
-            {
-                $tweet = new Tweet();
-                $tweet
-                    ->setId($tweetTmp->id)
-                    ->setCreatedAt(new \Datetime($tweetTmp->created_at))
-                    ->setText($tweetTmp->text)
-                    ->setRetweetCount($tweetTmp->retweet_count)
-                    ->setFavoriteCount($tweetTmp->favorite_count)
-                    ->setUser($user)
-                ;
-                
-                if (
-                    (isset($tweetTmp->entities))
-                    &&
-                    // @codeCoverageIgnoreStart
-                    (isset($tweetTmp->entities->media))
-                    // @codeCoverageIgnoreEnd
-                )
-                {
-                    foreach ($tweetTmp->entities->media as $mediaTmp)
-                    {
-                        // @codeCoverageIgnoreStart
-                        if ($mediaTmp->type !== 'photo')
-                        {
-                            continue;
-                        }
-                        // @codeCoverageIgnoreEnd
-                        
-                        # Media
-                        $media = $this->em
-                            ->getRepository('AsyncTweetsTweetBundle:Media')
-                            ->findOneById($mediaTmp->id)
-                        ;
-                        
-                        if (! $media)
-                        {
-                            $media = new Media();
-                            $media
-                                ->setId($mediaTmp->id)
-                            ;
-                        }
-                        
-                        $media
-                            ->setMediaUrlHttps($mediaTmp->media_url)
-                            ->setUrl($mediaTmp->url)
-                            ->setDisplayUrl($mediaTmp->display_url)
-                            ->setExpandedUrl($mediaTmp->expanded_url)
-                        ;
-                        
-                        $tweet->addMedia($media);
-                        
-                        $em->persist($media);
-                    }
-                }
-            }
-            
-            $em->persist($tweet);
-            $em->flush();
-            
-            if ($input->getOption('table'))
-            {
-                $table->addRow(array(
-                    $tweetTmp->created_at,
-                    mb_substr($tweetTmp->text, 0, 20),
-                    $userTmp->name
-                ));
-            }
+            $this->persistTweet($tweetTmp);
             
             $progress->advance();
         }
@@ -253,9 +155,114 @@ class StatusesHomeTimelineCommand extends BaseCommand
         $progress->finish();
         $output->writeln('');
         
-        if ($input->getOption('table'))
+        if ($this->displayTable)
         {
-            $table->render($output);
+            $this->table->render($output);
+        }
+    }
+    
+    protected function persistTweet($tweetTmp)
+    {
+        $userTmp = $tweetTmp->user;
+        
+        # User
+        $user = $this->em
+            ->getRepository('AsyncTweetsTweetBundle:User')
+            ->findOneById($userTmp->id)
+        ;
+        
+        if (! $user)
+        {
+            $user = new User();
+            
+            # Only set the id when adding the user
+            $user
+                ->setId($userTmp->id)
+            ;
+        }
+        
+        # Update these fields
+        $user
+            ->setName($userTmp->name)
+            ->setScreenName($userTmp->screen_name)
+            ->setProfileImageUrl($userTmp->profile_image_url)
+        ;
+        
+        $this->em->persist($user);
+        
+        # Tweet
+        $tweet = $this->em
+            ->getRepository('AsyncTweetsTweetBundle:Tweet')
+            ->findOneById($tweetTmp->id)
+        ;
+        
+        if (! $tweet)
+        {
+            $tweet = new Tweet();
+            $tweet
+                ->setId($tweetTmp->id)
+                ->setCreatedAt(new \Datetime($tweetTmp->created_at))
+                ->setText($tweetTmp->text)
+                ->setRetweetCount($tweetTmp->retweet_count)
+                ->setFavoriteCount($tweetTmp->favorite_count)
+                ->setUser($user)
+            ;
+            
+            if (
+                (isset($tweetTmp->entities))
+                &&
+                // @codeCoverageIgnoreStart
+                (isset($tweetTmp->entities->media))
+                // @codeCoverageIgnoreEnd
+            )
+            {
+                foreach ($tweetTmp->entities->media as $mediaTmp)
+                {
+                    // @codeCoverageIgnoreStart
+                    if ($mediaTmp->type !== 'photo')
+                    {
+                        continue;
+                    }
+                    // @codeCoverageIgnoreEnd
+                    
+                    # Media
+                    $media = $this->em
+                        ->getRepository('AsyncTweetsTweetBundle:Media')
+                        ->findOneById($mediaTmp->id)
+                    ;
+                    
+                    if (! $media)
+                    {
+                        $media = new Media();
+                        $media
+                            ->setId($mediaTmp->id)
+                        ;
+                    }
+                    
+                    $media
+                        ->setMediaUrlHttps($mediaTmp->media_url)
+                        ->setUrl($mediaTmp->url)
+                        ->setDisplayUrl($mediaTmp->display_url)
+                        ->setExpandedUrl($mediaTmp->expanded_url)
+                    ;
+                    
+                    $tweet->addMedia($media);
+                    
+                    $this->em->persist($media);
+                }
+            }
+        }
+        
+        $this->em->persist($tweet);
+        $this->em->flush();
+        
+        if ($this->displayTable)
+        {
+            $this->table->addRow(array(
+                $tweetTmp->created_at,
+                mb_substr($tweetTmp->text, 0, 20),
+                $userTmp->name
+            ));
         }
     }
 }
