@@ -8,6 +8,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 use AsyncTweets\TweetBundle\Entity\Tweet;
 
+/**
+ * @codeCoverageIgnore
+ */
 class LoadTweetData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**

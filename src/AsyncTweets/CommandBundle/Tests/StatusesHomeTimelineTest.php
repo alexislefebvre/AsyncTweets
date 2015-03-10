@@ -28,8 +28,35 @@ class StatusesHomeTimelineTest extends StatusesBase
         $this->commandTester->execute(array(
             '--test' => true
         ));
-
+        
         $this->assertRegExp('/Number of tweets: 3/', $this->commandTester->getDisplay());
+    }
+    
+    public function testStatusesHomeTimelineNotArray()
+    {
+        $this->loadFixtures(array());
+        
+        $this->commandTester->execute(array(
+            '--notarray' => true
+        ));
+        
+        $display = $this->commandTester->getDisplay();
+        
+        $this->assertRegExp('/Something went wrong, \$content is not an array./', $this->commandTester->getDisplay());
+    }
+    
+    public function testStatusesHomeTimelineEmptyArray()
+    {
+        $this->loadFixtures(array());
+        
+        $this->commandTester->execute(array(
+            '--emptyarray' => true
+        ));
+        
+        $display = $this->commandTester->getDisplay();
+        
+        $this->assertRegExp('/Number of tweets: 0/', $display);
+        $this->assertRegExp('/No new tweet./', $display);
     }
     
     public function testStatusesHomeTimelineWithTweets()

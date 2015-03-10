@@ -26,11 +26,14 @@ class StatusesHomeTimelineCommand extends BaseCommand
             # http://symfony.com/doc/2.3/cookbook/console/console_command.html#automatically-registering-commands
             ->addOption('table', null, InputOption::VALUE_NONE, 'Display a table with tweets')
             ->addOption('test', null, InputOption::VALUE_NONE, 'Read a tweet from a JSON file')
+            ->addOption('notarray', null, InputOption::VALUE_NONE, 'Return null instead of JSON')
+            ->addOption('emptyarray', null, InputOption::VALUE_NONE, 'Return an empty array instead of JSON')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // @codeCoverageIgnoreStart
         if (! $input->getOption('test'))
         {
             $connection = new TwitterOAuth(
@@ -40,6 +43,7 @@ class StatusesHomeTimelineCommand extends BaseCommand
                 $this->container->getParameter('twitter_token_secret')
             );
         }
+        // @codeCoverageIgnoreEnd
         
         /** @see https://dev.twitter.com/rest/reference/get/statuses/home_timeline */
         $parameters = array(
@@ -77,16 +81,24 @@ class StatusesHomeTimelineCommand extends BaseCommand
         
         $output->writeln('<comment>'.$comment.'</comment>');
         
-        if (! $input->getOption('test'))
+        if ($input->getOption('test'))
         {
-            $content = $connection->get('statuses/home_timeline', $parameters);
+            $content = json_decode(file_get_contents(
+                dirname(__FILE__).'/../Tests/data/tweets.json'));
+        }
+        else if ($input->getOption('notarray'))
+        {
+            $content = null;
+        }
+        else if ($input->getOption('emptyarray'))
+        {
+            $content = array();
         }
         else
         {
-            $tweetJSON = file_get_contents(
-                dirname(__FILE__).'/../Tests/data/tweets.json');
-            
-            $content = json_decode($tweetJSON);
+            // @codeCoverageIgnoreStart
+            $content = $connection->get('statuses/home_timeline', $parameters);
+            // @codeCoverageIgnoreEnd
         }
         
         if (! is_array($content))
@@ -181,15 +193,19 @@ class StatusesHomeTimelineCommand extends BaseCommand
                 if (
                     (isset($tweetTmp->entities))
                     &&
+                    // @codeCoverageIgnoreStart
                     (isset($tweetTmp->entities->media))
+                    // @codeCoverageIgnoreEnd
                 )
                 {
                     foreach ($tweetTmp->entities->media as $mediaTmp)
                     {
+                        // @codeCoverageIgnoreStart
                         if ($mediaTmp->type !== 'photo')
                         {
                             continue;
                         }
+                        // @codeCoverageIgnoreEnd
                         
                         # Media
                         $media = $this->em
