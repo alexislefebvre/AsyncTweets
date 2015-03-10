@@ -2,7 +2,6 @@
 
 namespace AsyncTweets\TweetBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -54,7 +53,7 @@ class Tweet
      * Set id
      *
      * @param bigint $id
-     * @return User 
+     * @return Tweet 
      */
     public function setId($id)
     {
@@ -178,7 +177,7 @@ class Tweet
     /**
      * Set user
      *
-     * @param \User $user
+     * @param User $user
      * @return Tweet
      */
     public function setUser(User $user)
