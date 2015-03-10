@@ -61,5 +61,5 @@ AsyncTweets retrieves and stores your timeline, allowing to read your Twitter ti
 [Composer]: https://getcomposer.org/download/
 [Symfony2 GitHub]: https://github.com/symfony/symfony
 [twitteroauth]: https://github.com/abraham/twitteroauth
-[doctrine-fixtures-bundle]: https://github.com/doctrine/doctrine-fixtures-bundle
-[functional-test-bundle]: https://github.com/liip/functional-test-bundle
+[doctrine-fixtures-bundle]: https://github.com/doctrine/DoctrineFixturesBundle
+[functional-test-bundle]: https://github.com/liip/LiipFunctionalTestBundle
