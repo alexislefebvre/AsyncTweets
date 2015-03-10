@@ -61,8 +61,6 @@ class DefaultController extends Controller
             $activeTab = 'tweets';
         }
         
-        $response = new Response();
-        
         # No cookie by default
         $cookie = null;
         
