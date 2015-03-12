@@ -1,3 +1,0 @@
-asynctweets_website:
-    resource: "@AsyncTweetsWebsiteBundle/Resources/config/routing.yml"
-    prefix:   /
