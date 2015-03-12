@@ -1,12 +1,12 @@
 <?php
 
-namespace AsyncTweetsBundle\Tests\Entity;
+namespace AsyncTweets\AsyncTweetsBundle\Tests\Entity;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
-use AsyncTweetsBundle\Entity\Media;
-use AsyncTweetsBundle\Entity\Tweet;
-use AsyncTweetsBundle\Entity\User;
+use AsyncTweets\AsyncTweetsBundle\Entity\Media;
+use AsyncTweets\AsyncTweetsBundle\Entity\Tweet;
+use AsyncTweets\AsyncTweetsBundle\Entity\User;
 
 class TweetRepositoryTest extends WebTestCase
 {
